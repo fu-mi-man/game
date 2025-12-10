@@ -1,0 +1,9 @@
+# compose.yaml
+services:
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    container_name: game-nginx
+    ports:
+      - "80:80"
