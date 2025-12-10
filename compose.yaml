@@ -1,5 +1,15 @@
 # compose.yaml
 services:
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: game-api
+    volumes:
+      - ./api:/var/www/html
+    working_dir: /var/www/html
+    networks:
+      - game-network
   nginx:
     build:
       context: ./nginx
@@ -7,3 +17,14 @@ services:
     container_name: game-nginx
     ports:
       - "80:80"
+    volumes:
+      - ./api:/var/www/html
+    # apiコンテナが起動してからnginxコンテナを起動する
+    depends_on:
+      - api
+    networks:
+      - game-network
+
+networks:
+  game-network:
+    driver: bridge

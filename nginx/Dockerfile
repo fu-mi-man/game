@@ -1,4 +1,4 @@
-# Dockerfile
+# nginx/Dockerfile
 # ベースとなるイメージ（公式のnginx）
 FROM nginx:1.25-alpine
 
