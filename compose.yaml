@@ -10,6 +10,19 @@ services:
     working_dir: /var/www/html
     networks:
       - game-network
+  admin:
+    build:
+      context: ./admin
+      dockerfile: Dockerfile
+      target: development
+    container_name: game-admin
+    volumes:
+      - ./admin:/app
+      - admin_node_modules:/app/node_modules # 重要: node_modulesはコンテナ内に保持
+    ports:
+      - "5173:5173"
+    networks:
+    - game-network
   nginx:
     build:
       context: ./nginx
@@ -28,3 +41,6 @@ services:
 networks:
   game-network:
     driver: bridge
+
+volumes:
+  admin_node_modules:
